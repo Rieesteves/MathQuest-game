@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Math Quest — Learn & Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- HOME -->
+  <main id="home" class="page active">
+    <div class="hero">
+      <div class="hero-left">
+        <h1 class="logo">Math Quest</h1>
+        <p class="tag">The Journey of Numbers — Learn, Practice, Conquer!</p>
+
+        <div class="home-buttons">
+          <button id="btnLearn">🎓 Learn Mode</button>
+
+        <!-- Topic preview -->
+        <div class="topic-preview">
+          <h3>📚 Topics You’ll Learn</h3>
+          <ul>
+            <li><b>Arithmetic Progression (AP)</b><br><br> 
+            <li><b>Geometric Progression (GP)</b> <br><br>
+            <li><b>Harmonic Progression (HP)</b> <br><br>
+            <li><b>Algebra</b> <br><br>
+            <li><b>Geometry</b> <br><br>
+          </ul>
+        </div>
+      <div>
+        <br>
+          <button id="btnQuiz" disabled>🧩 Quiz Mode (locked)</button></div>
+
+        <p class="note">Complete all learning topics to unlock the Quiz.</p>
+      </div>
+
+      <!--<div class="hero-right">
+        <div class="orb"></div>
+      </div>-->
+    </div>
+  </main>
+
+  <!-- LEARN MODE -->
+  <section id="learn" class="page">
+    <div class="learn-wrap">
+      <aside class="learn-tabs" id="topicTabs">
+        <button class="tab active" data-topic="AP">AP</button>
+        <button class="tab" data-topic="GP">GP</button>
+        <button class="tab" data-topic="HP">HP</button>
+        <button class="tab" data-topic="Algebra">Algebra</button>
+        <button class="tab" data-topic="Geometry">Geometry</button>
+        <div class="learn-progress">
+          <div>Completed: <span id="learnCompleted">0</span>/<span id="learnTotal">5</span></div>
+          <button id="resetProgress" class="ghost small">Reset Progress</button>
+          <button id="backHomeFromLearn" class="ghost">← Back Home</button>
+        </div>
+      </aside>
+
+      <div class="learn-content" id="learnContent">
+ <!-- Topic panels (same content, but buttons no inline JS) -->
+        <div class="topic" id="topic-AP">
+          <h2>📘 Arithmetic Progression (AP)</h2>
+          <p>Formula: <b>T<sub>n</sub> = a + (n − 1) d</b></p>
+          <p>AP is a sequence where the difference between consecutive terms is constant.</p>
+
+          <hr>
+          <h3>Try it yourself</h3>
+          <div class="calc-grid">
+            <input id="ap_a" type="number" placeholder="First term (a)">
+            <input id="ap_d" type="number" placeholder="Common difference (d)">
+            <input id="ap_n" type="number" placeholder="Term number (n)">
+            <button id="calcAP">Calculate AP</button>
+          </div>
+          <p class="calc-result" id="ap_result"></p>
+
+          <button class="markComplete" data-topic="AP">Mark Complete ✅</button>
+        </div>
+
+        <div class="topic hidden" id="topic-GP">
+          <h2>📗 Geometric Progression (GP)</h2>
+          <p>Formula: <b>T<sub>n</sub> = a × rⁿ⁻¹</b></p>
+          <p>Each term is multiplied by a fixed ratio r.</p>
+
+          <hr>
+          <div class="calc-grid">
+            <input id="gp_a" type="number" placeholder="First term (a)">
+            <input id="gp_r" type="number" placeholder="Ratio (r)">
+            <input id="gp_n" type="number" placeholder="Term number (n)">
+            <button id="calcGP">Calculate GP</button>
+          </div>
+          <p class="calc-result" id="gp_result"></p>
+
+          <button class="markComplete" data-topic="GP">Mark Complete ✅</button>
+        </div>
+
+        <div class="topic hidden" id="topic-HP">
+          <h2>📙 Harmonic Progression (HP)</h2>
+          <p>Formula: <b>T<sub>n</sub> = 1 / [a + (n − 1) d]</b></p>
+          <p>HP terms are reciprocals of an AP.</p>
+
+          <hr>
+          <div class="calc-grid">
+            <input id="hp_a" type="number" placeholder="First term of AP (a)">
+            <input id="hp_d" type="number" placeholder="Difference (d)">
+            <input id="hp_n" type="number" placeholder="Term number (n)">
+            <button id="calcHP">Calculate HP</button>
+          </div>
+          <p class="calc-result" id="hp_result"></p>
+
+          <button class="markComplete" data-topic="HP">Mark Complete ✅</button>
+        </div>
+
+        <div class="topic hidden" id="topic-Algebra">
+          <h2>🧮 Algebra (Basics)</h2>
+          <p>Linear form: <b>ax + b = c</b> → x = (c − b)/a</p>
+
+          <hr>
+          <div class="calc-grid">
+            <input id="alg_a" type="number" placeholder="a">
+            <input id="alg_b" type="number" placeholder="b">
+            <input id="alg_c" type="number" placeholder="c">
+            <button id="calcAlg">Solve</button>
+          </div>
+          <p class="calc-result" id="alg_result"></p>
+
+          <button class="markComplete" data-topic="Algebra">Mark Complete ✅</button>
+        </div>
+
+        <div class="topic hidden" id="topic-Geometry">
+          <h2>📐 Geometry (Basics)</h2>
+          <p>Sum of angles in triangle = 180°. Area of triangle = ½ × base × height.</p>
+
+          <hr>
+          <div class="calc-grid">
+            <input id="geo_A" type="number" placeholder="Angle A (°)">
+            <input id="geo_B" type="number" placeholder="Angle B (°)">
+            <button id="calcGeo">Find missing angle</button>
+          </div>
+          <p class="calc-result" id="geo_result"></p>
+
+          <button class="markComplete" data-topic="Geometry">Mark Complete ✅</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="page">
+    <div id="levelIntro" class="level-intro hidden"></div>
+
+    <div class="game-card">
+      <header class="game-header">
+        <div>
+          <h2 id="gameTitle">Math Quest — Gate <span id="levelNum">1</span>/4</h2>
+          <div id="levelName" class="muted">AP</div>
+        </div>
+        <div class="score">Score: <span id="score">0</span></div>
+      </header>
+
+      <main class="game-body">
+        <p id="questionText" class="question"></p>
+        <div id="answerControls" class="answer-row">
+          <input id="answerInput" type="text" placeholder="Type answer here (number or fraction)">
+          <button id="checkBtn">Check</button>
+          <button id="hintBtn" class="ghost">Hint</button>
+        </div>
+        <div id="probabilityUI" class="prob-ui hidden">
+          <div class="big">Roll two dice to experiment</div>
+          <div class="dice-row">
+            <div id="dice1">🎲</div><div id="dice2">🎲</div>
+            <div class="spacer"></div>
+            <div>Target: <span id="probTarget"></span></div>
+            <button id="rollBtn">Roll</button>
+          </div>
+          <div id="rollMsg" class="muted"></div>
+        </div>
+        <div id="resultMsg" class="result"></div>
+      </main>
+
+      <footer class="game-footer">
+        <div id="navMsg" class="muted">Gate awaits...</div>
+        <div class="controls">
+          <button id="homeFromQuiz" class="ghost">🏠 Home</button>
+          <div class="timer">⏱ <span id="timer">15</span>s</div>
+          <button id="skipBtn" class="ghost">Skip Level</button>
+          <button id="restartBtn" class="ghost">Restart Quest</button>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section id="final" class="page">
+    <div class="final-card">
+      <h2>🏆 Crystal of Reason</h2>
+      <p>You finished the quest.</p>
+      <p>Final score: <span id="finalScore">0</span></p>
+      <div class="final-actions">
+        <button id="playAgain">Play Again</button>
+        <button id="toHome" class="ghost">Back to Home</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popup & sounds -->
+  <audio id="snd-correct" src="assets/correct.mp3" preload="auto"></audio>
+  <audio id="snd-wrong" src="assets/wrong.mp3" preload="auto"></audio>
+  <audio id="snd-timesup" src="assets/timesup.mp3" preload="auto"></audio>
+  <div id="popup" class="popup hidden"></div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

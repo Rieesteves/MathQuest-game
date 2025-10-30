@@ -1,0 +1,85 @@
+:root{
+  --bg1:#071122;
+  --card:#0b1220;
+  --accent:#6ee7b7;
+  --muted:#94a3b8;
+  --glass:rgba(255,255,255,0.03);
+  --white: #e6eef6;
+}
+*{box-sizing:border-box;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+body{margin:0;background:linear-gradient(180deg,#031024 0%,#071122 60%);color:var(--white);min-height:100vh}
+.page{display:none;padding:28px}
+.page.active{display:block}
+
+/* HOME / HERO */
+.hero{display:flex;gap:24px;align-items:center;justify-content:space-between;max-width:1100px;margin:48px auto}
+.hero-left{flex:1}
+.logo{font-size:40px;margin:0;color:var(--accent)}
+.tag{color:var(--muted);margin-top:6px}
+.home-buttons{margin-top:16px}
+.home-buttons button{margin-right:12px;padding:12px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+#btnLearn{background:linear-gradient(90deg,#60a5fa,#6ee7b7);color:#022}
+#btnQuiz{background:linear-gradient(90deg,#4c6ef5,#8b5cf6);color:#fff}
+.note{color:var(--muted);margin-top:10px}
+
+/* animated orb */
+.hero-right{width:220px;display:flex;align-items:center;justify-content:center}
+.orb{width:160px;height:160px;border-radius:999px;background:radial-gradient(circle at 30% 30%, #6ee7b7, #60a5fa 40%, rgba(255,255,255,0.04));box-shadow:0 12px 40px rgba(6,10,20,0.7)}
+.orb{animation:float 6s ease-in-out infinite}
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-14px) scale(1.03)}100%{transform:translateY(0)}}
+
+/* LEARN layout */
+.learn-wrap{display:flex;gap:20px;max-width:1000px;margin:20px auto}
+.learn-tabs{width:180px;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+.learn-tabs .tab{display:block;width:100%;padding:10px;border:none;text-align:left;background:transparent;color:var(--muted);margin-bottom:6px;border-radius:8px;cursor:pointer}
+.learn-tabs .tab.active{background:rgba(255,255,255,0.03);color:var(--white)}
+.learn-progress{margin-top:12px;padding-top:12px;border-top:1px dashed rgba(255,255,255,0.03)}
+.learn-progress .ghost{margin-top:8px;padding:8px;width:100%}
+
+/* topic content */
+.learn-content{flex:1;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+.topic{display:block}
+.topic.hidden{display:none}
+.calc-grid{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.calc-grid input{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:var(--white);min-width:120px}
+.calc-grid button{padding:8px 12px;border-radius:8px;border:none;background:var(--accent);color:#042;cursor:pointer}
+.calc-result{margin-top:10px;color:var(--muted)}
+
+/* game layout */
+.game-card{max-width:820px;margin:18px auto;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+.game-header{display:flex;justify-content:space-between;align-items:center}
+.levelName{color:var(--muted)}
+.score{font-weight:700}
+.game-body{margin-top:12px}
+.question{font-size:18px}
+.answer-row{display:flex;gap:8px;align-items:center;margin-top:12px}
+.answer-row input{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:var(--white);min-width:220px}
+button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 10px;border-radius:8px;color:var(--muted);cursor:pointer}
+
+/* probability UI */
+.prob-ui{margin-top:12px;padding:10px;border-radius:8px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
+.dice-row{display:flex;gap:12px;align-items:center}
+.dice-row div#dice1, .dice-row div#dice2{font-size:32px}
+
+/* result */
+.result{margin-top:12px;min-height:28px}
+.result .success{color:#86efac;font-weight:700}
+.result .fail{color:#ff8b8b;font-weight:700}
+.muted{color:var(--muted)}
+
+/* footer controls */
+.game-footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.controls{display:flex;gap:8px;align-items:center}
+.timer{font-weight:700;background:rgba(255,255,255,0.02);padding:6px 10px;border-radius:8px}
+
+/* final card */
+.final-card{max-width:420px;margin:30px auto;padding:20px;border-radius:12px;background:linear-gradient(180deg,#071122,#06101a);border:1px solid rgba(255,255,255,0.03)}
+.final-actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
+button{outline:none}
+
+/* small screens */
+@media (max-width:820px){
+  .learn-wrap{flex-direction:column}
+  .hero{flex-direction:column}
+  .hero-right{display:none}
+}

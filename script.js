@@ -71,7 +71,7 @@ homeFromQuiz && homeFromQuiz.addEventListener('click', () => {
   let currentHint = '';
   let probTargetValue = 7;
   let timer = null;
-  let timeLeft = 15;
+  let timeLeft = 30;
 
   // helpers
   function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min }

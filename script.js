@@ -325,7 +325,7 @@ homeFromQuiz && homeFromQuiz.addEventListener('click', () => {
   /* ---------- TIMER ---------- */
   function startTimer(){
     clearInterval(timer);
-    timeLeft = 15;
+    timeLeft = 30;
     const timerEl = document.getElementById('timer');
     if(timerEl) timerEl.textContent = timeLeft;
     const timerWrap = timerEl && timerEl.parentElement;

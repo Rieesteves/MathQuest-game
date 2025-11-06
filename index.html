@@ -7,12 +7,45 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+
+     <!-- INTRO PAGE -->
+<!-- INTRO PAGE -->
+<section id="intro" class="page active">
+  <div class="intro-wrap">
+
+    <!-- Animated MATHS letters -->
+    <div class="title-anim">
+      <span class="bounce">M</span> <span class="bounce">A</span>
+      <span class="bounce">T</span> <span class="bounce">H</span>
+      <span class="bounce">Q</span> <span class="bounce">u</span>
+      <span class="bounce">e</span> <span class="bounce">s</span> <span class="bounce">t</span>
+    </div>
+
+    <div class="intro-text">
+      <p>👋 Hey there, Mathathles! Are you ready for fun filled Math Quest.</p>
+      <p>What’s your name, adventurer?!</p>
+      <input type="text" id="playerNameInput" placeholder="Enter your name">
+      <button id="startGameBtn">Start Adventure 🚀</button>
+    </div>
+
+     <!-- Boy animation above -->
+    <div class="boy-img">
+      <img src="assets/boy.png" alt="Animated Boy" class="boy-walk">
+    </div>
+  </div>
+</section>
+
+
   <!-- HOME -->
   <main id="home" class="page active">
     <div class="hero">
       <div class="hero-left">
         <h1 class="logo">Math Quest</h1>
         <p class="tag">The Journey of Numbers — Learn, Practice, Conquer!</p>
+        <div id="userNameDisplay" class="user-name">
+        <span id="userNameText"></span><a href="#" id="changeNameLink">Change name!</a>
+        </div>
 
         <div class="home-buttons">
           <button id="btnLearn">🎓 Learn Mode</button>
@@ -147,6 +180,7 @@
 
   <!-- QUIZ -->
   <section id="quiz" class="page">
+    <div id="userNameQuiz" class="user-name"></div>
     <div id="levelIntro" class="level-intro hidden"></div>
 
     <div class="game-card">
@@ -191,18 +225,24 @@
     </div>
   </section>
 
-  <!-- FINAL -->
-  <section id="final" class="page">
-    <div class="final-card">
-      <h2>🏆 Crystal of Reason</h2>
-      <p>You finished the quest.</p>
-      <p>Final score: <span id="finalScore">0</span></p>
-      <div class="final-actions">
-        <button id="playAgain">Play Again</button>
-        <button id="toHome" class="ghost">Back to Home</button>
-      </div>
+<!-- FINAL -->
+<section id="final" class="page">
+  <div class="final-card">
+    <h2>🏆 Crystal of Reason</h2>
+    <p>You finished the quest.</p>
+    <p id="finalScore">Final score: 0</p>
+
+    <h3>🏅 Previous Scores</h3>
+    <ul id="scoreList" class="score-list"></ul>
+
+    <div class="final-actions">
+      <button id="playAgain">Play Again</button>
+      <button id="toHome" class="ghost">Back to Home</button>
+      <button id="clearScores" class="ghost danger">Clear Score History</button>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- Popup & sounds -->
   <audio id="snd-correct" src="assets/correct.mp3" preload="auto"></audio>

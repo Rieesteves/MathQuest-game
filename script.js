@@ -16,6 +16,72 @@ homeFromQuiz && homeFromQuiz.addEventListener('click', () => {
   }
 });
 
+     // --- Player Name and Intro Logic ---
+  const startGameBtn = document.getElementById('startGameBtn');
+  const playerNameInput = document.getElementById('playerNameInput');
+  const userNameText = document.getElementById('userNameText');
+  const userNameDisplay = document.getElementById('userNameDisplay');
+  const userNameQuiz = document.getElementById('userNameQuiz');
+  let playerName = '';
+
+  const NAME_KEY = 'mathquest_player';
+  const SCORE_HISTORY_KEY = 'mathquest_score_history';
+
+  // Save score history (keep 10 max)
+  function saveScore(name, score) {
+    let history = JSON.parse(localStorage.getItem(SCORE_HISTORY_KEY) || '[]');
+    history.push({ name, score, date: new Date().toLocaleString() });
+    if (history.length > 10) history = history.slice(-10);
+    localStorage.setItem(SCORE_HISTORY_KEY, JSON.stringify(history));
+  }
+
+  // Load stored name
+  function loadName() {
+    const saved = localStorage.getItem(NAME_KEY);
+    if (saved) {
+      playerName = saved;
+      updateNameDisplays();
+    }
+  }
+
+  // Update both displays (home + quiz)
+  function updateNameDisplays() {
+    if (userNameText) userNameText.textContent = `👋 ${playerName}`;
+    if (userNameQuiz) userNameQuiz.textContent = `👋 ${playerName}`;
+  }
+
+  // Clicking name goes back to intro
+  function setupClickableNames() {
+    [userNameDisplay, userNameQuiz].forEach(el => {
+      if (!el) return;
+      el.addEventListener('click', () => {
+        document.body.classList.add('lock-scroll');
+        showPage('intro');
+      });
+    });
+  }
+
+  // Start game button
+  if (startGameBtn) {
+    startGameBtn.addEventListener('click', () => {
+      const name = playerNameInput.value.trim();
+      if (!name) {
+        alert("Please enter your name to begin your adventure!");
+        return;
+      }
+      playerName = name;
+      localStorage.setItem(NAME_KEY, name);
+      updateNameDisplays();
+      document.body.classList.remove('lock-scroll');
+      showPage('home');
+    });
+  }
+
+  loadName();
+  setupClickableNames();
+
+  // Lock scroll initially on intro
+  document.body.classList.add('lock-scroll');
 
   // Learn
   const tabs = document.querySelectorAll('.learn-tabs .tab');
@@ -425,10 +491,46 @@ homeFromQuiz && homeFromQuiz.addEventListener('click', () => {
     }
   }
 
-  function finishQuest(){
-    finalScoreEl.textContent = score;
-    showPage('final');
+    function finishQuest() {
+  const player = playerName || 'Explorer';
+  finalScoreEl.innerHTML = `<strong>${player}</strong>, your final score is <b>${score}</b>!`;
+
+  // Save the current score
+  saveScore(player, score);
+
+  // Load score history and sort ascending
+  const history = JSON.parse(localStorage.getItem(SCORE_HISTORY_KEY) || '[]');
+  const sorted = history.slice().sort((a, b) => a.score - b.score);
+
+  // Populate the score list
+  const scoreList = document.getElementById('scoreList');
+  if (scoreList) {
+    if (sorted.length === 0) {
+      scoreList.innerHTML = `<li><span>No scores yet.</span></li>`;
+    } else {
+      scoreList.innerHTML = sorted
+        .map(entry => 
+          `<li><span>${entry.name}</span><span>${entry.score}</span></li>`
+        )
+        .join('');
+    }
   }
+
+  // Show page
+  showPage('final');
+}
+
+// Clear Score History button
+const clearScoresBtn = document.getElementById('clearScores');
+if (clearScoresBtn) {
+  clearScoresBtn.addEventListener('click', () => {
+    if (confirm('Clear all saved scores?')) {
+      localStorage.removeItem(SCORE_HISTORY_KEY);
+      const scoreList = document.getElementById('scoreList');
+      if (scoreList) scoreList.innerHTML = `<li><span>History cleared.</span></li>`;
+    }
+  });
+}
 
   /* ---------- DICE ROLL (animated) ---------- */
   function showDiceFace(el, value){

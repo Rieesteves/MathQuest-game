@@ -152,9 +152,7 @@ homeFromQuiz && homeFromQuiz.addEventListener('click', () => {
       updateLearnProgressUI();
       showPopup(`🎉 ${topic} mastered!`);
       // visual unlock if all done
-      if(completed.size === totalTopics){
-        showPopup('All topics studied — Quiz unlocked!');
-      }
+      
     });
   });
 

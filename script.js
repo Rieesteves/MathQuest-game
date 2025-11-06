@@ -324,22 +324,21 @@ homeFromQuiz && homeFromQuiz.addEventListener('click', () => {
 
   /* ---------- TIMER ---------- */
   function startTimer(){
-    clearInterval(timer);
-    timeLeft = 30;
-    const timerEl = document.getElementById('timer');
-    if(timerEl) timerEl.textContent = timeLeft;
-    const timerWrap = timerEl && timerEl.parentElement;
-    timerWrap && timerWrap.classList.add('pulse');
-    timer = setInterval(()=>{
-      timeLeft--;
-      if(timerEl) timerEl.textContent = timeLeft;
-      if(timeLeft <= 0){
-        clearInterval(timer);
-        timerWrap && timerWrap.classList.remove('pulse');
-        handleTimeout();
-      }
-    },1000);
-  }
+  clearInterval(timer);
+  timeLeft = 30;
+  document.getElementById('timer').textContent = timeLeft;
+  const fill = document.getElementById('timerFill');
+  timer = setInterval(()=>{
+    timeLeft--;
+    document.getElementById('timer').textContent = timeLeft;
+    fill.style.width = (timeLeft/30 * 100) + '%';
+    if(timeLeft <= 0){
+      clearInterval(timer);
+      handleTimeout();
+    }
+  },1000);
+}
+
 
   function stopTimer(){
     clearInterval(timer);
@@ -481,6 +480,7 @@ homeFromQuiz && homeFromQuiz.addEventListener('click', () => {
   hintBtn.addEventListener('click', ()=> {
     resultMsg.innerHTML = `<div class="muted">Hint: ${currentHint}</div>`;
   });
+  
 
   /* ---------- START / LAUNCH ---------- */
   function startQuiz(){

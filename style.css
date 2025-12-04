@@ -241,3 +241,120 @@ button.danger {
 button.danger:hover {
   background: rgba(255,0,0,0.15);
 }
+
+/* ================= PYTHAGORAS EMBEDDED STYLES ================= */
+
+#pythagoras .p-controls {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(90px,1fr));
+  gap:10px;
+  margin-bottom:15px;
+}
+
+#pythagoras label {
+  font-size:14px;
+  color:var(--white);
+}
+
+#pythagoras input[type=number]{
+  width:100%;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.15);
+  background:rgba(255,255,255,0.04);
+  color:var(--white);
+}
+
+#pythagoras .p-btn{
+  padding:10px;
+  border-radius:8px;
+  background:#2f8f4a;
+  border:none;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+#pythagoras .p-btn.secondary{background:#1f6ea8;}
+#pythagoras .p-btn.tertiary{background:#b76bd0;}
+#pythagoras .p-btn.reset{background:#444;}
+#pythagoras .p-btn:disabled{opacity:0.5;cursor:not-allowed;}
+
+#pythagoras #p_status{
+  text-align:center;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+#pythagoras #p_stage{
+  width:100%;
+  height:450px;
+  background:rgba(255,255,255,0.02);
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.07);
+  position:relative;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+#pythagoras #p_center{width:100%;height:100%;position:relative;}
+
+#pythagoras #p_triangle{
+  position:absolute;
+  opacity:0;
+  transition:opacity 0.4s;
+}
+
+#pythagoras .p-sq{
+  position:absolute;
+  border:2px solid rgba(255,255,255,0.15);
+  border-radius:6px;
+  overflow:hidden;
+  opacity:0;
+  transition:opacity 0.4s;
+}
+
+#pythagoras .grid{
+  width:100%;
+  height:100%;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px);
+  background-size:20px 20px;
+}
+
+#pythagoras .water{
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:0%;
+  background:linear-gradient(to top,rgba(24,150,255,0.95),
+                                      rgba(130,200,255,0.85));
+  transition:height 1.2s ease-in-out;
+}
+
+#pythagoras .label-chip{
+  position:absolute;
+  right:6px;
+  top:6px;
+  background:rgba(0,0,0,0.4);
+  color:white;
+  padding:4px 6px;
+  font-size:12px;
+  border-radius:4px;
+}
+
+.aColor{background:#ffb3a7;}
+.bColor{background:#ffe066;}
+.cColor{background:#66b3ff;}
+
+.pythagoras-block {
+  margin-top: 10px;
+}
+
+.pythagoras-block .topic-list {
+  margin: 5px 0 0 5px;
+  padding-left: 15px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}

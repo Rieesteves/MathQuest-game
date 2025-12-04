@@ -1,9 +1,10 @@
 {
-  "name": "MathQuest",
+  "name": "Math Quest",
   "short_name": "MathQuest",
-  "start_url": "index.html"
+  "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#f0f8ff",
+  "background_color": "#0099cc",
   "theme_color": "#0099cc",
   "icons": [
     {
@@ -18,4 +19,3 @@
     }
   ]
 }
-

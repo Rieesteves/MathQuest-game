@@ -1,7 +1,7 @@
 {
   "name": "MathQuest",
   "short_name": "MathQuest",
-  "start_url": ".",
+  "start_url": "index.html"
   "display": "standalone",
   "background_color": "#f0f8ff",
   "theme_color": "#0099cc",
@@ -18,3 +18,4 @@
     }
   ]
 }
+

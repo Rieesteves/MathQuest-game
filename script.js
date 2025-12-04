@@ -3,20 +3,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- ELEMENT REFERENCES ---------- */
   const btnLearn = document.getElementById('btnLearn');
+  const btnPythagoras = document.getElementById('btnPythagoras');
   const btnQuiz = document.getElementById('btnQuiz');
   const toHome = document.getElementById('toHome');
   const backHomeFromLearn = document.getElementById('backHomeFromLearn');
+  const backHomeFromPyth = document.getElementById('backHomeFromPyth');
   const playAgain = document.getElementById('playAgain');
-  // new Home button from Quiz
-const homeFromQuiz = document.getElementById('homeFromQuiz');
-homeFromQuiz && homeFromQuiz.addEventListener('click', () => {
-  if(confirm('Exit the current quest and return home?')) {
-    stopTimer();
-    showPage('home');
-  }
-});
 
-     // --- Player Name and Intro Logic ---
+  // new Home button from Quiz
+  const homeFromQuiz = document.getElementById('homeFromQuiz');
+  homeFromQuiz && homeFromQuiz.addEventListener('click', () => {
+    if(confirm('Exit the current quest and return home?')) {
+      stopTimer();
+      showPage('home');
+    }
+  });
+
+  // --- Player Name and Intro Logic ---
   const startGameBtn = document.getElementById('startGameBtn');
   const playerNameInput = document.getElementById('playerNameInput');
   const userNameText = document.getElementById('userNameText');
@@ -307,11 +310,143 @@ homeFromQuiz && homeFromQuiz.addEventListener('click', () => {
     if(el) el.classList.add('active');
     window.scrollTo({top:0,behavior:'smooth'});
   }
-  btnLearn.addEventListener('click', ()=> showPage('learn'));
-  btnQuiz.addEventListener('click', ()=> { if(!btnQuiz.disabled) startQuiz(); });
-  backHomeFromLearn.addEventListener('click', ()=> showPage('home'));
+  btnLearn && btnLearn.addEventListener('click', ()=> showPage('learn'));
+  btnQuiz && btnQuiz.addEventListener('click', ()=> { if(!btnQuiz.disabled) startQuiz(); });
+  backHomeFromLearn && backHomeFromLearn.addEventListener('click', ()=> showPage('home'));
   toHome && toHome.addEventListener('click', ()=> showPage('home'));
   playAgain && playAgain.addEventListener('click', ()=> startQuiz());
+
+  /* ---------- PYTHAGORAS MODULE (embedded) ---------- */
+  // We'll create a module function that initialises the embedded Pythagoras demo
+  function initPythagoras() {
+    console.log('initPythagoras called');
+    // DOM refs (prefixed IDs inside the pythagoras page)
+    const aIn = document.getElementById("p_aIn");
+    const bIn = document.getElementById("p_bIn");
+    const cIn = document.getElementById("p_cIn");
+
+    const calcBtn = document.getElementById("p_calcBtn");
+    const buildBtn = document.getElementById("p_buildBtn");
+    const animBtn = document.getElementById("p_animBtn");
+    const resetBtn = document.getElementById("p_resetBtn");
+
+    const status = document.getElementById("p_status");
+
+    const tri = document.getElementById("p_triangle");
+    const aSq = document.getElementById("p_aSquare");
+    const bSq = document.getElementById("p_bSquare");
+    const cSq = document.getElementById("p_cSquare");
+
+    const aW = document.getElementById("p_aWater");
+    const bW = document.getElementById("p_bWater");
+    const cW = document.getElementById("p_cWater");
+
+    // If any of these are missing, bail out (page might not be present)
+    if(!aIn || !bIn || !cIn || !calcBtn || !buildBtn || !animBtn || !resetBtn) {
+      console.warn('Pythagoras elements missing; ensure section#pythagoras is present.');
+      return;
+    }
+
+    let a,b,c,scale;
+    function setStatus(t,color){ status.textContent = t; status.style.color = color || "var(--white)"; }
+    function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+    function fullReset(){
+      aIn.value=""; bIn.value=""; cIn.value="";
+      setStatus("");
+      tri.style.opacity=0;
+      aSq.style.opacity=0; bSq.style.opacity=0; cSq.style.opacity=0;
+      aW.style.height="0%"; bW.style.height="0%"; cW.style.height="0%";
+      buildBtn.disabled=true; animBtn.disabled=true;
+      // re-enable animBtn (in case)
+      animBtn.disabled = true;
+    }
+
+    // auto reset on entry
+    fullReset();
+
+    // wire handlers (remove previous to avoid duplicate handlers)
+    calcBtn.onclick = ()=> {
+      a=parseFloat(aIn.value);
+      b=parseFloat(bIn.value);
+      if(a<=0||b<=0||isNaN(a)||isNaN(b)){
+        setStatus("Enter valid a & b","var(--danger)");
+        buildBtn.disabled=true; animBtn.disabled=true;
+        return;
+      }
+      const correctC=Math.sqrt(a*a+b*b);
+      if(!cIn.value){ c=correctC; cIn.value=correctC.toFixed(3); } else c=parseFloat(cIn.value);
+      if(Math.abs(c-correctC)>0.001){
+        setStatus("❌ Not a right triangle","var(--danger)");
+        buildBtn.disabled=true; animBtn.disabled=true;
+        return;
+      }
+      setStatus("✔ Valid right triangle!","var(--accent)");
+      buildBtn.disabled=false; animBtn.disabled=false;
+    };
+
+    buildBtn.onclick = ()=> {
+      const stage = document.getElementById("p_stage");
+      const w=stage.clientWidth, h=stage.clientHeight;
+      const maxSide=Math.max(a,b,Math.sqrt(a*a+b*b));
+      scale=(Math.min(w,h)*0.35)/maxSide;
+      const aPx=a*scale, bPx=b*scale, cPx=c*scale;
+      const cx=w/2, cy=h/2;
+      tri.style.borderBottom=`${bPx}px solid rgba(126,217,87,0.9)`;
+      tri.style.borderLeft=`${aPx}px solid transparent`;
+      tri.style.left=(cx - aPx/2)+"px";
+      tri.style.top =(cy - bPx/2)+"px";
+      tri.style.opacity=1;
+      aSq.style.width=aPx+"px"; aSq.style.height=aPx+"px";
+      aSq.style.left=(cx - cPx/2 - aPx - 10)+"px";
+      aSq.style.top =(cy - aPx/2)+"px"; aSq.style.opacity=1;
+      bSq.style.width=bPx+"px"; bSq.style.height=bPx+"px";
+      bSq.style.left=(cx + cPx/2 + 10)+"px";
+      bSq.style.top =(cy - bPx/2)+"px"; bSq.style.opacity=1;
+      cSq.style.width=cPx+"px"; cSq.style.height=cPx+"px";
+      cSq.style.left=(cx - cPx/2)+"px";
+      cSq.style.top =(cy - cPx/2)+"px"; cSq.style.opacity=1;
+      aW.style.height="0%"; bW.style.height="0%"; cW.style.height="0%";
+      setStatus("Built — Click Animate","var(--muted)");
+    };
+
+    animBtn.onclick = async ()=> {
+      animBtn.disabled=true;
+      setStatus("Filling a² & b²...","var(--muted)");
+      aW.style.height="100%"; bW.style.height="100%";
+      await wait(1300);
+      const areaA=parseFloat(aSq.style.width)**2;
+      const areaB=parseFloat(bSq.style.width)**2;
+      const areaC=parseFloat(cSq.style.width)**2;
+      let pct=(areaA+areaB)/areaC*100; if(pct>100)pct=100;
+      setStatus("Pouring into c² ...","var(--muted)");
+      cW.style.height=pct+"%";
+      await wait(1400);
+      cW.style.height="100%";
+      setStatus("✔ a² + b² = c²","var(--accent)");
+    };
+
+    resetBtn.onclick = ()=> {
+      fullReset();
+      setStatus("Reset — enter new values","var(--muted)");
+    };
+  } // end initPythagoras
+
+  // Hook up Pythagoras navigation
+  if(btnPythagoras){
+    btnPythagoras.addEventListener('click', () => {
+      console.log('btnPythagoras clicked');
+      showPage('pythagoras');
+      // init after a small tick to ensure the page is active and elements rendered
+      setTimeout(()=> initPythagoras(), 50);
+    });
+  } else {
+    console.warn('btnPythagoras not found in DOM.');
+  }
+
+  if(backHomeFromPyth){
+    backHomeFromPyth.addEventListener('click', ()=> showPage('home'));
+  }
 
   /* ---------- QUIZ logic (enhanced) ---------- */
   function probabilityOfSum(target){
@@ -556,7 +691,7 @@ if (clearScoresBtn) {
   });
 
   /* ---------- SKIP / RESTART ---------- */
-  skipBtn.addEventListener('click', ()=> {
+  skipBtn && skipBtn.addEventListener('click', ()=> {
     if(confirm('Skip this level? You lose chance for points here.')) {
       stopTimer();
       level++;
@@ -564,7 +699,7 @@ if (clearScoresBtn) {
     }
   });
 
-  restartBtn.addEventListener('click', ()=> {
+  restartBtn && restartBtn.addEventListener('click', ()=> {
     if(confirm('Restart quest?')) {
       stopTimer();
       level = 1;
@@ -576,8 +711,8 @@ if (clearScoresBtn) {
   });
 
   /* ---------- CHECK / HINT ---------- */
-  checkBtn.addEventListener('click', checkAnswer);
-  hintBtn.addEventListener('click', ()=> {
+  checkBtn && checkBtn.addEventListener('click', checkAnswer);
+  hintBtn && hintBtn.addEventListener('click', ()=> {
     resultMsg.innerHTML = `<div class="muted">Hint: ${currentHint}</div>`;
   });
   
@@ -612,4 +747,3 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.log('❌ SW registration failed:', err));
   });
 }
-

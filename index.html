@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Math Quest — Learn & Quiz</title>
   <link rel="stylesheet" href="style.css" />
+  
   <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0099cc">
 
@@ -64,6 +65,16 @@
             <li><b>Geometry</b> <br><br>
           </ul>
         </div>
+    <div>
+
+     <!-- NEW: Pythagoras E-Learn -->
+<div class="pythagoras-block">
+  <button id="btnPythagoras">📐 E-Learn: Pythagoras</button>
+  <ul class="topic-list">
+    <li><b>Pythagoras Theorem</b></li>
+  </ul>
+</div>
+
       <div>
         <br>
           <button id="btnQuiz" disabled>🧩 Quiz Mode (locked)</button></div>
@@ -180,6 +191,58 @@
       </div>
     </div>
   </section>
+
+  <!-- ===================== PYTHAGORAS E-LEARN PAGE ===================== -->
+<section class="page" id="pythagoras">
+
+  <button id="backHomeFromPyth" class="ghost" style="margin-bottom:15px;">
+      ← Back Home
+  </button>
+
+  <div class="game-card">
+      <h2 style="color:var(--accent);">📐 Pythagoras — Water Fill Proof</h2>
+      <p class="muted">Interactively explore the Pythagorean theorem.</p>
+
+      <!-- Controls -->
+      <div class="p-controls">
+        <label>a<input id="p_aIn" type="number" /></label>
+        <label>b<input id="p_bIn" type="number" /></label>
+        <label>c<input id="p_cIn" type="number" placeholder="auto" /></label>
+
+        <button class="p-btn" id="p_calcBtn">Calculate</button>
+        <button class="p-btn secondary" id="p_buildBtn" disabled>Build</button>
+        <button class="p-btn tertiary" id="p_animBtn" disabled>Animate</button>
+        <button class="p-btn reset" id="p_resetBtn">Reset</button>
+      </div>
+
+      <div id="p_status"></div>
+
+      <!-- Stage -->
+      <div id="p_stage">
+        <div id="p_center">
+
+          <div id="p_triangle"></div>
+
+          <div id="p_aSquare" class="p-sq aColor">
+            <div class="grid"></div><div class="water" id="p_aWater"></div>
+            <div class="label-chip">a²</div>
+          </div>
+          <div id="p_bSquare" class="p-sq bColor">
+            <div class="grid"></div><div class="water" id="p_bWater"></div>
+            <div class="label-chip">b²</div>
+          </div>
+          <div id="p_cSquare" class="p-sq cColor">
+            <div class="grid"></div><div class="water" id="p_cWater"></div>
+            <div class="label-chip">c²</div>
+          </div>
+
+        </div>
+      </div>
+
+  </div>
+</section>
+<!-- ===================== END PYTHAGORAS PAGE ===================== -->
+
 
   <!-- QUIZ -->
   <section id="quiz" class="page">
